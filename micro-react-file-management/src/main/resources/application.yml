@@ -1,0 +1,16 @@
+server:
+  port: 9001
+spring:
+  profiles:
+    active: dev
+  application:
+    name: micro-react-file-management
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.102.36.32:8848
+  redis:
+    database: 0
+    port: 6379
+    host: 121.36.49.252
+    password: root
