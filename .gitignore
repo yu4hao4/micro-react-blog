@@ -328,3 +328,15 @@ micro-react-views/logs
 # Vim swap files
 micro-react-views/*.swp
 /micro-react-views/node_modules/
+
+
+node_modules
+dist/
+package-lock.json
+func-test/www
+.umi/
+.umi-production
+*.sw*
+*.un~
+config.local.js
+yarn.lock
