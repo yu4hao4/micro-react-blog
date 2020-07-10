@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@ant-design/icons": "^4.2.1",
+    "@umijs/preset-react": "^1",
+    "umi": "^3.2.9"
+  },
+  "name": "micro-react-views-admin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
