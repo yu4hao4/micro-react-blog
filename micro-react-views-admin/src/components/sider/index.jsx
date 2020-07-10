@@ -1,5 +1,5 @@
 import {Layout, Menu} from "antd";
-import {DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
+import {SettingOutlined, FileOutlined, DiffOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -18,10 +18,10 @@ class IndexSider extends React.Component {
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
               <div className="logo" />
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                  <Menu.Item key="1" icon={<PieChartOutlined />}>
+                  <Menu.Item key="1" icon={<DiffOutlined />}>
                       添加文章
                   </Menu.Item>
-                  <Menu.Item key="2" icon={<DesktopOutlined />}>
+                  <Menu.Item key="2" icon={<SettingOutlined />}>
                       文章管理
                   </Menu.Item>
                   <SubMenu key="sub1" icon={<UserOutlined />} title="User">
