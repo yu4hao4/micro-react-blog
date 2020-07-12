@@ -1,0 +1,19 @@
+{
+  "name": "micro-vue-views-admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.11.0",
+    "ant-design-vue": "^1.6.2",
+    "mavon-editor": "^2.9.0",
+    "nuxt": "^2.13.0"
+  },
+  "devDependencies": {}
+}
