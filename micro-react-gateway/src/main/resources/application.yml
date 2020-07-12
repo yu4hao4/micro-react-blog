@@ -1,44 +1,41 @@
 server:
-  port: 9101
+  port: 9001
 spring:
   profiles:
     active: dev
   application:
-    name: micro-oauth2-gateway
+    name: micro-react-gateway
   cloud:
     nacos:
       discovery:
         server-addr: 47.102.36.32:8848
     gateway:
       routes: #配置路由路径
-        - id: oauth2-api-route
-          uri: lb://micro-oauth2-api
+        - id: micro-react-file-management
+          uri: lb://micro-react-file-management
           predicates:
-            - Path=/api/**
+            - Path=/file-management/**
           filters:
             - StripPrefix=1
-        - id: oauth2-auth-route
-          uri: lb://micro-oauth2-auth
+        - id: micro-react-sso
+          uri: lb://micro-react-sso
           predicates:
-            - Path=/auth/**
+            - Path=/sso/**
+          filters:
+            - StripPrefix=1
+        - id: micro-react-mail
+          uri: lb://micro-react-mail
+          predicates:
+            - Path=/mail/**
+          filters:
+            - StripPrefix=1
+        - id: micro-react-admin
+          uri: lb://micro-react-admin
+          predicates:
+            - Path=/admin/**
           filters:
             - StripPrefix=1
       discovery:
         locator:
           enabled: true #开启从注册中心动态创建路由的功能
           lower-case-service-id: true #使用小写服务名，默认是大写
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: 'http://localhost:9401/rsa/publicKey' #配置RSA的公钥访问地址
-  redis:
-    database: 0
-    port: 6379
-    host: 121.36.49.252
-    password: root
-secure:
-  ignore:
-    urls: #配置白名单路径
-      - "/actuator/**"
-      - "/auth/oauth/token"

@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9101
 spring:
   profiles:
     active: dev
@@ -9,8 +9,16 @@ spring:
     nacos:
       discovery:
         server-addr: 47.102.36.32:8848
-  redis:
-    database: 0
-    port: 6379
-    host: 121.36.49.252
-    password: root
+# 访问图片的ip地址
+image:
+  #  url: http://121.36.49.252:9000/image/
+  #  url: http://47.97.164.48:9000/image/
+#  url: https://www.scttool.com/api/image/
+ url: http://localhost:9001/file-management/image/
+
+# 访问文件的ip地址
+file:
+  #  url: http://121.36.49.252:9000/file/
+  #  url:  http://47.97.164.48:9000/file/
+#  url:  https://www.scttool.com/api/file/
+  url: http://localhost:9001/file-management/file

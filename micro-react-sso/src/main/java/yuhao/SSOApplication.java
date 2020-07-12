@@ -6,13 +6,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author 喻浩
- * @create 2020-07-12-10:45
+ * @create 2020-07-12-11:32
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class GatewayApplication {
-
+public class SSOApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(SSOApplication.class, args);
     }
 }

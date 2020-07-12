@@ -1,0 +1,21 @@
+server:
+  port: 9301
+spring:
+  profiles:
+    active: dev
+  application:
+    name: micro-react-mail
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.102.36.32:8848
+  main:
+    allow-bean-definition-overriding: true
+#dubbo:
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  registry:
+#    address: nacos://47.102.36.32:8848
+#  scan:
+#    base-packages: yuhao.openservice.impl

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--targetRuntime="MyBatis3Simple":生成简单版的CRUD;MyBatis3:豪华版 -->
+    <context id="MyBatisGenerator" targetRuntime="MyBatis3">
+
+        <!-- 生成的实体Bean,将实现Serializable -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true:是 ; false:否 -->
+            <property name="suppressAllComments" value="false" />
+        </commentGenerator>
+
+        <!-- jdbcConnection:连接数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://47.102.36.32:13306/micro_blog?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <!-- 默认false,把JDBC DECIMAL和 NUMERIC 类型解析为 Integer true,
+            把JDBC DECIMAL和 NUMERIC类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成model模型所对应的包路径,以及文件存放路径(targetProject);
+            targetProject可以指定具体的路径,如./src/main/java,也可以使用“MAVEN”来自动生成,
+            这样生成的代码会在target/generatord-source目录下 -->
+        <javaModelGenerator targetPackage="yuhao"
+                            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--对应的mapper.xml文件 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 对应的Mapper接口类文件-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="yuhao.mapper" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 数据表与Bean的映射 -->
+        <table tableName="article" domainObjectName="Article" >
+            <columnOverride column="article_content" javaType="java.lang.String" jdbcType="mediumtext" />
+        </table>
+<!--        <table tableName="admin" domainObjectName="Admin" />-->
+<!--        <table tableName="carousel" domainObjectName="Carousel" />-->
+<!--        <table tableName="connection" domainObjectName="Connection" />-->
+<!--        <table tableName="data" domainObjectName="Data" />-->
+<!--        <table tableName="exhibition" domainObjectName="Exhibition" />-->
+<!--        <table tableName="field" domainObjectName="Field" >-->
+<!--            <columnOverride column="field_content_cn" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="field_content_tw" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="field_content_us" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="field_content_ru" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+
+
+<!--        <table tableName="history" domainObjectName="History" />-->
+<!--        <table tableName="news" domainObjectName="News" >-->
+<!--            <columnOverride column="news_content_cn" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="news_content_tw" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="news_content_us" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="news_content_ru" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--        <table tableName="product" domainObjectName="Product" >-->
+<!--            <columnOverride column="product_content_cn" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="product_content_tw" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="product_content_us" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="product_content_ru" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--        <table tableName="product_type" domainObjectName="ProductType" />-->
+<!--        <table tableName="quality" domainObjectName="Quality" >-->
+<!--            <columnOverride column="quality_content_cn" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="quality_content_tw" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="quality_content_us" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--            <columnOverride column="quality_content_ru" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
+<!--        <table tableName="serving" domainObjectName="Serving" />-->
+<!--        <table tableName="company" domainObjectName="Company" />-->
+
+    </context>
+</generatorConfiguration>

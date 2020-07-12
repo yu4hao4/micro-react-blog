@@ -1,0 +1,43 @@
+server:
+  port: 9501
+spring:
+  profiles:
+    active: dev
+  application:
+    name: micro-react-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.102.36.32:8848
+  main:
+    allow-bean-definition-overriding: true
+  # 数据库
+  datasource:
+    druid:
+      url: jdbc:mysql://47.102.36.32:13306/foreign_trade_platform?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+  # 文件上传
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 1000MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true
