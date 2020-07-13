@@ -1,11 +1,10 @@
-package yuhao.openservice;
+package yuhao.service;
 
-import com.netflix.hystrix.Hystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import yuhao.api.Email;
-import yuhao.api.RespBean;
+import yuhao.api.EmailReqDTO;
+import yuhao.api.RespDTO;
 
 /**
  * @author 喻浩
@@ -19,5 +18,5 @@ public interface IMailOpenService {
      * @return
      */
     @PostMapping("/sendEmail")
-    RespBean<Object> sendEMail(@RequestBody Email email);
+    RespDTO<Object> sendEMail(@RequestBody EmailReqDTO email);
 }

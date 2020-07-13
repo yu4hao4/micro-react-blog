@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespBean;
+import yuhao.api.RespDTO;
 import yuhao.service.FileManageServiceInf;
 
 /**
@@ -20,7 +20,7 @@ public class FileManageController {
 
     @Async
     @PostMapping("/fileUpload")
-    public RespBean<Object> fileUpload(@RequestPart("file") MultipartFile file){
+    public RespDTO<Object> fileUpload(@RequestPart("file") MultipartFile file){
         return fileManageService.fileUpload(file);
     }
 
@@ -31,13 +31,13 @@ public class FileManageController {
      */
     @Async
     @PostMapping("/bigFileUpload")
-    public RespBean<Object> bigFileUpload(@RequestPart("file") MultipartFile file){
+    public RespDTO<Object> bigFileUpload(@RequestPart("file") MultipartFile file){
         return fileManageService.bigFileUpload(file);
     }
 
     @RequestMapping("/test")
-    public RespBean test(){
-        return RespBean.commonly(201,"hello");
+    public RespDTO test(){
+        return RespDTO.commonly(201,"hello");
     }
 
 }

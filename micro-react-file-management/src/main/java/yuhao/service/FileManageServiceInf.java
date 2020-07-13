@@ -2,7 +2,7 @@ package yuhao.service;
 
 
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespBean;
+import yuhao.api.RespDTO;
 
 /**
  * @author 喻浩
@@ -15,12 +15,12 @@ public interface FileManageServiceInf {
      * @param file
      * @return
      */
-    RespBean<Object> fileUpload(MultipartFile file);
+    RespDTO<Object> fileUpload(MultipartFile file);
 
     /**
      * 上传大文件
      * @param file
      * @return
      */
-    RespBean<Object> bigFileUpload(MultipartFile file);
+    RespDTO<Object> bigFileUpload(MultipartFile file);
 }

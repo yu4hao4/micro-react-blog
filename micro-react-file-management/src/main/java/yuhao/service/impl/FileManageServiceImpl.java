@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespBean;
+import yuhao.api.RespDTO;
 import yuhao.service.FileManageServiceInf;
 import yuhao.util.FileManageUtil;
 
@@ -34,16 +34,16 @@ public class FileManageServiceImpl implements FileManageServiceInf {
      * @return
      */
     @Override
-    public RespBean fileUpload(MultipartFile file) {
+    public RespDTO fileUpload(MultipartFile file) {
         if(StringUtils.isEmpty(file.getName())){
-            return RespBean.error("文件不能为空");
+            return RespDTO.error("文件不能为空");
         }
 
         System.out.println("校验文件大小开始");
         // 文件不大于2MB
         boolean checkFileSize = checkFileSize(file.getSize(), 2, "M");
         if ( !checkFileSize ){
-            return RespBean.error("文件太大");
+            return RespDTO.error("文件太大");
         }
         System.out.println("校验文件大小结束");
 
@@ -52,7 +52,7 @@ public class FileManageServiceImpl implements FileManageServiceInf {
         if( !("JPEG".equals(suffix.toUpperCase())
                 || "JPG".equals(suffix.toUpperCase())
                 || "PNG".equals(suffix.toUpperCase())) ){
-            return RespBean.error("文件错误");
+            return RespDTO.error("文件错误");
         }
 
         String filename = FileManageUtil.getInitFileName(file.getOriginalFilename());
@@ -74,10 +74,10 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             log.info("文件上传成功，路径为：{}",filePath);
         } catch (IOException e) {
             e.printStackTrace();
-            return RespBean.error("文件错误");
+            return RespDTO.error("文件错误");
         }
 
-        return RespBean.commonly(200,"文件上传成功",imageUrl+filename);
+        return RespDTO.commonly(200,"文件上传成功",imageUrl+filename);
     }
 
     /**
@@ -86,16 +86,16 @@ public class FileManageServiceImpl implements FileManageServiceInf {
      * @return
      */
     @Override
-    public RespBean<Object> bigFileUpload(MultipartFile file) {
+    public RespDTO<Object> bigFileUpload(MultipartFile file) {
         if(StringUtils.isEmpty(file.getName())){
-            return RespBean.error("文件不能为空");
+            return RespDTO.error("文件不能为空");
         }
 
         System.out.println("校验文件大小开始");
         // 文件不大于200MB
         boolean checkFileSize = checkFileSize(file.getSize(), 200, "M");
         if (!checkFileSize ){
-            return RespBean.error("文件太大");
+            return RespDTO.error("文件太大");
         }
         System.out.println("校验文件大小结束");
 
@@ -121,10 +121,10 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             log.info("文件上传成功，路径为：{}",filePath);
         } catch (IOException e) {
             e.printStackTrace();
-            return RespBean.error("文件错误");
+            return RespDTO.error("文件错误");
         }
 
-        return RespBean.commonly(200,"文件上传成功",fileUrl+filename);
+        return RespDTO.commonly(200,"文件上传成功",fileUrl+filename);
     }
 
     /**

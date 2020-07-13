@@ -1,8 +1,8 @@
 package yuhao.service;
 
 import org.springframework.web.bind.annotation.RequestBody;
-import yuhao.api.Email;
-import yuhao.api.RespBean;
+import yuhao.api.EmailReqDTO;
+import yuhao.api.RespDTO;
 
 /**
  * @author 喻浩
@@ -14,5 +14,5 @@ public interface IMailService {
      * @param email
      * @return
      */
-    RespBean<Object> sendEMail(@RequestBody Email email);
+    RespDTO<Object> sendEMail(@RequestBody EmailReqDTO email);
 }

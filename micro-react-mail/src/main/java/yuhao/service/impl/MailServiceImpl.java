@@ -3,8 +3,8 @@ package yuhao.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import yuhao.api.Email;
-import yuhao.api.RespBean;
+import yuhao.api.EmailReqDTO;
+import yuhao.api.RespDTO;
 import yuhao.api.ResultCode;
 import yuhao.service.IMailService;
 import yuhao.util.MailUtil;
@@ -29,14 +29,14 @@ public class MailServiceImpl implements IMailService {
      * @return
      */
     @Override
-    public RespBean<Object> sendEMail(Email email) {
+    public RespDTO<Object> sendEMail(EmailReqDTO email) {
 //        mailUtil.sendEmail("1175827603@qq.com","验证码","111");
 //        mailUtil.sendEmail("982276133@qq.com","测试","11111");
         if (mailUtil.sendEmail(email.getReceiveEmail(),email.getSubject(),email.getContent())){
             log.info("邮件发送成功 ---- 接收者--{} --- 主题是--{}", email.getReceiveEmail(), email.getSubject());
-            return RespBean.commonly(ResultCode.EMAIL_SEND_OK.getCode(), ResultCode.EMAIL_SEND_OK.getMessage(),"1111");
+            return RespDTO.commonly(ResultCode.EMAIL_SEND_OK.getCode(), ResultCode.EMAIL_SEND_OK.getMessage(),"1111");
         }
 
-        return RespBean.commonly(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage());
+        return RespDTO.commonly(ResultCode.FAILED.getCode(), ResultCode.FAILED.getMessage());
     }
 }

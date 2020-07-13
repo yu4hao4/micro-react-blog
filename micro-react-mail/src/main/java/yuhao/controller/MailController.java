@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import yuhao.api.RespBean;
-import yuhao.api.Email;
+import yuhao.api.RespDTO;
+import yuhao.api.EmailReqDTO;
 import yuhao.service.IMailService;
 
 /**
@@ -18,7 +18,7 @@ public class MailController {
     IMailService mailBusiService;
 
     @PostMapping("/sendEmail")
-    public RespBean<Object> sendEMail(@RequestBody Email email){
+    public RespDTO<Object> sendEMail(@RequestBody EmailReqDTO email){
         return mailBusiService.sendEMail(email);
     }
 }

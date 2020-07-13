@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yuhao.api.Login;
-import yuhao.api.RespBean;
+import yuhao.api.LoginReqDTO;
+import yuhao.api.RespDTO;
 import yuhao.api.ResultCode;
 import yuhao.util.RedisUtil;
 
@@ -30,15 +30,15 @@ public class SSOController {
      * @return
      */
     @RequestMapping("/hasKey/{key}")
-    public RespBean<Object> hasKey(@PathVariable("key") String key) {
+    public RespDTO<Object> hasKey(@PathVariable("key") String key) {
         try {
             if (redisUtil.hasKey(key)){
-                return RespBean.commonly(ResultCode.KEY_EXIST.getCode(),ResultCode.KEY_EXIST.getMessage());
+                return RespDTO.commonly(ResultCode.KEY_EXIST.getCode(),ResultCode.KEY_EXIST.getMessage());
             }
-            return RespBean.commonly(ResultCode.UNAUTHORIZED.getCode(),ResultCode.UNAUTHORIZED.getMessage());
+            return RespDTO.commonly(ResultCode.UNAUTHORIZED.getCode(),ResultCode.UNAUTHORIZED.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return RespBean.commonly(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage());
+            return RespDTO.commonly(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage());
         }
     }
 
@@ -63,24 +63,24 @@ public class SSOController {
 
     /**
      * 登录的校验
-     * @param login
+     * @param loginReqDTO
      * @return
      */
     @RequestMapping("/login")
-    private RespBean<Object> login(Login login) {
+    private RespDTO<Object> login(LoginReqDTO loginReqDTO) {
         //通行令牌
         String flag = null;
-        String dbCode = redisUtil.get(login.getUsername());
-        if (login.getCode().equals(dbCode)
-                || (("yuhao5").equals(login.getUsername()) && "yh123456#".equals(login.getCode()))
+        String dbCode = redisUtil.get(loginReqDTO.getUsername());
+        if (loginReqDTO.getCode().equals(dbCode)
+                || (("yuhao5").equals(loginReqDTO.getUsername()) && "yh123456#".equals(loginReqDTO.getCode()))
         ) {
             //用户名+时间戳（这里只是demo，正常项目的令牌应该要更为复杂）
-            String firstFlag = login.getUsername() + System.currentTimeMillis();
+            String firstFlag = loginReqDTO.getUsername() + System.currentTimeMillis();
             flag = MD5Encoder.encode(firstFlag.getBytes());
             //令牌作为key，存用户id作为value（或者直接存储可暴露的部分用户信息也行）设置过期时间（我这里设置30分钟）
             redisUtil.setByExpire(flag, "1", 60*30);
         }
-        return RespBean.commonly(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), flag);
+        return RespDTO.commonly(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), flag);
     }
 
     /**
@@ -89,18 +89,18 @@ public class SSOController {
      * @return
      */
     @RequestMapping("/flushToken")
-    private RespBean<Object> flushToken(String token) {
+    private RespDTO<Object> flushToken(String token) {
         //通行令牌
         try {
             String flag = null;
             if (redisUtil.hasKey(token)){
                 flag = MD5Encoder.encode(token.getBytes()).substring(0,32);
-                return RespBean.commonly(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), flag);
+                return RespDTO.commonly(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), flag);
             }
-            return RespBean.commonly(ResultCode.UNAUTHORIZED.getCode(),ResultCode.UNAUTHORIZED.getMessage());
+            return RespDTO.commonly(ResultCode.UNAUTHORIZED.getCode(),ResultCode.UNAUTHORIZED.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return RespBean.commonly(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage());
+            return RespDTO.commonly(ResultCode.VALIDATE_FAILED.getCode(),ResultCode.VALIDATE_FAILED.getMessage());
         }
     }
 }
