@@ -13,7 +13,7 @@
     id, publish_time, publish_user, article_title, article_content, article_browse
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from article
     where id = #{id,jdbcType=INTEGER}
@@ -23,10 +23,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="yuhao.entity.Article">
-    insert into article (id, publish_time, publish_user, 
+    insert into article (id, publish_time, publish_user,
       article_title, article_content, article_browse
       )
-    values (#{id,jdbcType=INTEGER}, #{publishTime,jdbcType=VARCHAR}, #{publishUser,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{publishTime,jdbcType=VARCHAR}, #{publishUser,jdbcType=VARCHAR},
       #{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=mediumtext}, #{articleBrowse,jdbcType=INTEGER}
       )
   </insert>

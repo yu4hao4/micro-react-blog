@@ -1,7 +1,11 @@
 package yuhao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import yuhao.entity.Article;
 
+@Mapper
+@Component
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer id);
 
