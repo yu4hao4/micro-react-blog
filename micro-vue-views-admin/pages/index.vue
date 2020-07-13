@@ -19,6 +19,7 @@
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
           <DataStatistics v-if="chooseMenu.key === 'data-statistics'"/>
           <AddArticle v-if="chooseMenu.key === 'add-article'"/>
+          <ManageArticle v-if="chooseMenu.key === 'manage-article'"/>
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">

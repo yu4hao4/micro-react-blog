@@ -15,7 +15,7 @@
               退出登录
             </a-menu-item>
           </a-menu>
-          <a style="font-size: 20px" class="ant-dropdown-link">
+          <a style="font-size: 1em" class="ant-dropdown-link">
             <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="height: 35px;margin-bottom: 10px;"/>
             张三
             <a-icon type="down" style="font-size: 1em"/>
