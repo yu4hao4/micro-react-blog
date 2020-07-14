@@ -2,8 +2,9 @@ package yuhao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-import yuhao.dto.ArticleReqDTO;
-import yuhao.dto.ArticleRespDTO;
+import yuhao.dto.req.ArticleReqDTO;
+import yuhao.dto.resp.ArticleRespDTO;
+import yuhao.entity.Article;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ import java.util.List;
 @Component
 public interface MyArticleMapper {
     List<ArticleRespDTO> searchArticleByFilterConditions(ArticleReqDTO articleReqDTO);
+
+    int batchDeleteArticle(List<Article> articles);
 }

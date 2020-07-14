@@ -1,4 +1,4 @@
-package yuhao.api;
+package yuhao.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

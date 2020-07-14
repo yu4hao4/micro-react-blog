@@ -3,8 +3,8 @@ package yuhao.service;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import yuhao.api.EmailReqDTO;
-import yuhao.api.RespDTO;
+import yuhao.dto.req.EmailReqDTO;
+import yuhao.dto.resp.RespDTO;
 
 /**
  * @author 喻浩

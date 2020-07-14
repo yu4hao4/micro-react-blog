@@ -1,8 +1,7 @@
-package yuhao.dto;
+package yuhao.dto.resp;
 
 import lombok.*;
 import lombok.experimental.Accessors;
-import yuhao.entity.Article;
 
 /**
  * @author 喻浩
@@ -13,5 +12,6 @@ import yuhao.entity.Article;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleRespDTO extends Article {
+public class ArticleRespDTO {
+    private String id;
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespDTO;
+import yuhao.dto.resp.RespDTO;
 import yuhao.service.FileManageServiceInf;
 import yuhao.util.FileManageUtil;
 

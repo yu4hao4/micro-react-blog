@@ -11,6 +11,10 @@ spring:
         server-addr: 47.102.36.32:8848
   main:
     allow-bean-definition-overriding: true
+
+feign:
+  hystrix:
+    enabled: true
 #dubbo:
 #  protocol:
 #    name: dubbo

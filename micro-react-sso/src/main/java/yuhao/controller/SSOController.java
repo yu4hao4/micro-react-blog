@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import yuhao.api.LoginReqDTO;
-import yuhao.api.RespDTO;
+import yuhao.dto.req.LoginReqDTO;
+import yuhao.dto.resp.RespDTO;
 import yuhao.api.ResultCode;
 import yuhao.util.RedisUtil;
 

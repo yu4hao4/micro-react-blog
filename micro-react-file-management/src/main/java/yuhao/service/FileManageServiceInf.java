@@ -2,7 +2,7 @@ package yuhao.service;
 
 
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespDTO;
+import yuhao.dto.resp.RespDTO;
 
 /**
  * @author 喻浩

@@ -1,8 +1,8 @@
-package yuhao.dto;
+package yuhao.dto.req;
 
 import lombok.*;
 import lombok.experimental.Accessors;
-import yuhao.api.PagingBean;
+import yuhao.bean.PagingBean;
 
 /**
  * @author 喻浩

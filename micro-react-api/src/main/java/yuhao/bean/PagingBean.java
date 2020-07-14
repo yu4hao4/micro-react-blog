@@ -1,4 +1,4 @@
-package yuhao.api;
+package yuhao.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +12,6 @@ import lombok.experimental.Accessors;
  * @create 2020-07-13-23:39
  */
 @Data
-@Builder
-@Accessors(chain = true)
-@NoArgsConstructor
-@AllArgsConstructor
 public class PagingBean {
     //第几页
     private String current = "1";

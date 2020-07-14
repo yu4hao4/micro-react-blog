@@ -31,9 +31,9 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(resp => {
   if (resp.status && resp.status === 200 && resp.data.status === 500) {
-    message.error({message: resp.data.msg});
+    message.error(resp.data.msg);
   }else if (resp.data.status === 200 && resp.data.msg) {
-    message.success({message: resp.data.msg,duration:500});
+    message.success(resp.data.msg,0.5);
   }else if(resp.data.status === 303){
     localStorage.removeItem("admin")
     window.location.href = "/admin/login"

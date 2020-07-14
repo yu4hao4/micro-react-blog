@@ -1,5 +1,7 @@
-package yuhao.api;
+package yuhao.dto.resp;
 
+
+import yuhao.api.ResultCode;
 
 import java.io.Serializable;
 

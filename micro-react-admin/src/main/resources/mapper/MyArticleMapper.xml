@@ -9,10 +9,12 @@
     <result column="article_content" jdbcType="mediumtext" property="articleContent" />
     <result column="article_browse" jdbcType="INTEGER" property="articleBrowse" />
   </resultMap>
+  <resultMap id="MyDTOResultMap" type="yuhao.dto.resp.ArticleRespDTO">
+  </resultMap>
   <sql id="My_Base_Column_List">
     id, publish_time, publish_user, article_title, article_content, article_browse
   </sql>
-  <select id="searchArticleByFilterConditions" resultType="yuhao.dto.ArticleRespDTO">
+  <select id="searchArticleByFilterConditions" resultType="yuhao.dto.resp.ArticleRespDTO">
     select
     <include refid="My_Base_Column_List"/>
     from article
@@ -23,6 +25,14 @@
     </where>
     order by id desc
   </select>
+
+  <delete id="batchDeleteArticle">
+    delete from article where id in
+    <foreach collection="list" item="item" index="no" open="("
+             separator="," close=")">
+      #{item.id}
+    </foreach>
+  </delete>
 
 <!--  <select id="selectByUsername" resultMap="BaseResultMap">-->
 <!--    select-->

@@ -1,7 +1,8 @@
 <template>
   <a-table :row-selection="rowSelection" :columns="columns" :data-source="data" >
     <span slot="age" slot-scope="age">
-      <span style="background-color: #3b8070"> {{ age }}</span>
+<!--      <span style="background-color: #3b8070"> {{ age }}</span>-->
+      <span> {{ age }}</span>
 <!--      <a-tag-->
 <!--        v-for="tag in tags"-->
 <!--        :key="tag"-->
@@ -19,27 +20,28 @@
 <script>
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
+      title: '文章标题',
+      dataIndex: 'articleTitle',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
+      title: '发布时间',
+      dataIndex: 'publishTime',
       scopedSlots: { customRender: 'age' },
     },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
+    // {
+    //   title: 'Address',
+    //   dataIndex: 'address',
+    // },
   ];
 
   const data = [];
   for (let i = 0; i < 46; i++) {
     data.push({
       key: i,
-      name: `Edward King ${i}`,
+      articleTitle: `Edward King ${i}`,
       age: 32,
       address: `London, Park Lane no. ${i}`,
+      publishTime: new Date(),
     });
   }
 

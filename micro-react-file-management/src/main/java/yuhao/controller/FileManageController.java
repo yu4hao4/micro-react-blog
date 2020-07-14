@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import yuhao.api.RespDTO;
+import yuhao.dto.resp.RespDTO;
 import yuhao.service.FileManageServiceInf;
 
 /**
