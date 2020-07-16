@@ -14,11 +14,11 @@ image:
   #  url: http://121.36.49.252:9000/image/
   #  url: http://47.97.164.48:9000/image/
 #  url: https://www.scttool.com/api/image/
- url: http://localhost:9001/file-management/image/
+ url: http://121.36.49.252:9101/image/
 
 # 访问文件的ip地址
 file:
   #  url: http://121.36.49.252:9000/file/
   #  url:  http://47.97.164.48:9000/file/
 #  url:  https://www.scttool.com/api/file/
-  url: http://localhost:9001/file-management/file
+  url: http://121.36.49.252:9101/file/
