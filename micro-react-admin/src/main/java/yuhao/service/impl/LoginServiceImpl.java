@@ -38,7 +38,7 @@ public class LoginServiceImpl implements ILoginService {
 
         List<ArticleRespDTO> list = myArticleMapper.searchArticleByFilterConditions(articleReqDTO);
 
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<ArticleRespDTO> pageInfo = new PageInfo<ArticleRespDTO>(list);
         return RespDTO.commonly(201, pageInfo);
     }
 
