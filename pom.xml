@@ -16,6 +16,7 @@
     <module>micro-react-admin</module>
     <module>micro-react-file-management</module>
     <module>micro-react-api</module>
+    <module>micro-react-web</module>
   </modules>
 
   <properties>

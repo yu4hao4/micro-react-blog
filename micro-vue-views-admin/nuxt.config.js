@@ -78,7 +78,7 @@ export default {
       // target:'http://47.97.164.48:9000',
       // target:'http://47.114.151.122:9000',
       // target:'https://www.scttool.com/api',
-      target:'http://localhost:9000',
+      target:'http://121.36.49.252:9101',
       pathRewrite:{
         //将 /api 替换为 /
         '^/api':'/',

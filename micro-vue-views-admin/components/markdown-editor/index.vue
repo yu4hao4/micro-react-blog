@@ -1,7 +1,9 @@
 <template>
   <div class="mavonEditor">
     <no-ssr>
-      <mavon-editor :toolbars="markdownOption" v-model="content"/>
+      <mavon-editor :toolbars="markdownOption" v-model="mdContent"
+                    @imgAdd="imgAdd" ref="md"
+      />
     </no-ssr>
   </div>
 </template>
@@ -41,12 +43,41 @@
     subfield: true, // 单双栏模式
     preview: true, // 预览
   }
+  import { fileUpload } from "~/utils/api";
   export default {
+    props:{
+      content: {
+        type: String,
+      },
+    },
+    watch :{
+      content(val) {
+        this.mdContent = val
+      },
+      mdContent(val) {
+        this.$emit('changeContent',val)
+      }
+    },
     data() {
       return {
         markdownOption: toolbars,
-        content: "#### how to use mavonEditor in nuxt.js"
+        mdContent: this.content
       };
+    },
+    methods:{
+      // 绑定@imgAdd event
+      imgAdd(position, $file){
+        // 第一步.将图片上传到服务器.
+        let formData = new FormData();
+        formData.append('file', $file);
+        fileUpload(formData)
+          .then(resp => {
+          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+          // $vm.$img2Url 详情见本页末尾
+            console.log(resp)
+            this.$refs.md.$img2Url(position, resp.data.obj);
+        })
+      },
     }
   };
 </script>
