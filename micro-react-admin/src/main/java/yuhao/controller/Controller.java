@@ -18,7 +18,7 @@ import java.util.List;
  * @create 2020-07-12-14:04
  */
 @RestController
-public class LoginController {
+public class Controller {
     @Autowired
     IMailOpenService mailOpenService;
     @Autowired

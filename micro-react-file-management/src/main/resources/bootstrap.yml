@@ -9,16 +9,13 @@ spring:
     nacos:
       discovery:
         server-addr: 47.102.36.32:8848
+#        指定外网ip 不同服务器上部署的微服务模块需要指定这个配置
+        ip: 121.36.49.252
+        port: 9101
 # 访问图片的ip地址
 image:
-  #  url: http://121.36.49.252:9000/image/
-  #  url: http://47.97.164.48:9000/image/
-#  url: https://www.scttool.com/api/image/
  url: http://121.36.49.252:9101/image/
 
 # 访问文件的ip地址
 file:
-  #  url: http://121.36.49.252:9000/file/
-  #  url:  http://47.97.164.48:9000/file/
-#  url:  https://www.scttool.com/api/file/
   url: http://121.36.49.252:9101/file/
