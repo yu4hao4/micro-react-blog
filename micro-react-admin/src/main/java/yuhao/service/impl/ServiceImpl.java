@@ -10,7 +10,7 @@ import yuhao.dto.resp.RespDTO;
 import yuhao.entity.Article;
 import yuhao.mapper.ArticleMapper;
 import yuhao.mapper.MyArticleMapper;
-import yuhao.service.ILoginService;
+import yuhao.service.IService;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2020-07-13
  */
 @Service
-public class LoginServiceImpl implements ILoginService {
+public class ServiceImpl implements IService {
     @Autowired
     ArticleMapper articleMapper;
     @Autowired

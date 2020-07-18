@@ -6,21 +6,33 @@
     <result column="publish_time" jdbcType="VARCHAR" property="publishTime" />
     <result column="publish_user" jdbcType="VARCHAR" property="publishUser" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
-    <result column="article_content" jdbcType="mediumtext" property="articleContent" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
     <result column="article_browse" jdbcType="INTEGER" property="articleBrowse" />
   </resultMap>
   <resultMap id="MyDTOResultMap" type="yuhao.dto.resp.ArticleRespDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="publish_time" jdbcType="VARCHAR" property="publishTime" />
+    <result column="publish_user" jdbcType="VARCHAR" property="publishUser" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="article_browse" jdbcType="INTEGER" property="articleBrowse" />
   </resultMap>
   <sql id="My_Base_Column_List">
     id, publish_time, publish_user, article_title, article_content, article_browse
   </sql>
-  <select id="searchArticleByFilterConditions" resultType="yuhao.dto.resp.ArticleRespDTO">
+  <sql id="My_DTO_Base_Column_List">
+    id, publish_time, publish_user, article_title, article_content, article_browse
+  </sql>
+  <select id="searchArticleByFilterConditions" resultMap="MyDTOResultMap">
     select
-    <include refid="My_Base_Column_List"/>
+    <include refid="My_DTO_Base_Column_List"/>
     from article
     <where>
+      <if test="id != null and id != ''">
+        id = #{id}
+      </if>
       <if test="articleTitle != null and articleTitle != ''">
-        article_title like CONCAT('%',#{articleTitle,jdbcType=VARCHAR},'%')
+        and article_title like CONCAT('%',#{articleTitle,jdbcType=VARCHAR},'%')
       </if>
     </where>
     order by id desc

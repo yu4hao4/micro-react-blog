@@ -1,5 +1,7 @@
 package yuhao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 import yuhao.annotation.Storage;
 import yuhao.dto.req.ArticleReqDTO;
 import yuhao.dto.resp.ArticleRespDTO;

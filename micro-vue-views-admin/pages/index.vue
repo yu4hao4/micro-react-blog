@@ -4,8 +4,7 @@
 </template>
 
 <script>
-  import axios from "axios";
-  import { get } from '~/utils/api'
+  import { getIndexArticle } from '~/utils/api'
   import marked from 'marked'
   let query = {"current":1,"total":100,"pageSize":6,"pageSizeOpts":[10,20,30,40,50],"id":4};
   export default {
@@ -23,7 +22,7 @@
       //   })
       let beginTime = new Date().getMilliseconds();
       let [resp] = await Promise.all([
-        get(query)
+        getIndexArticle()
       ])
       let endTime = new Date().getMilliseconds();
       console.log(endTime - beginTime)
@@ -36,6 +35,9 @@
         // console.log(this.resp)
         return marked(this.content);
       }
+    },
+    mounted() {
+      console.log(this.resp)
     },
     data(){
       return{

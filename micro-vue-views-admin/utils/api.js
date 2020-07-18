@@ -1,11 +1,12 @@
 import request from './request'
+const fileManagement = '/file-management'
+const admin = '/admin'
 
-// 获得用户
-export function getArticle(query) {
+// 获得首页文章
+export function getIndexArticle() {
   return request({
-    url: '/admin/getArticle',
-    method: 'post',
-    data: query
+    url: admin+'/getArticle',
+    method: 'get'
   })
 }
 
@@ -17,10 +18,10 @@ export function get(query) {
   })
 }
 
-// 获得所有类型
+// 文件上传（图片）
 export function fileUpload(query) {
   return request({
-    url: '/fileUpload',
+    url: fileManagement+'/fileUpload',
     method: 'post',
     data: query
   })

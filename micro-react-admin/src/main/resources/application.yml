@@ -9,12 +9,15 @@ spring:
     nacos:
       discovery:
         server-addr: 47.102.36.32:8848
+#        指定外网ip
+        ip: 121.36.49.252
+        port: 9501
   main:
     allow-bean-definition-overriding: true
   # 数据库
   datasource:
     druid:
-      url: jdbc:mysql://47.102.36.32:13306/foreign_trade_platform?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://47.102.36.32:13306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: root
       driver-class-name: com.mysql.jdbc.Driver

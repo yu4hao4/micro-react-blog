@@ -10,7 +10,7 @@ import java.util.List;
  * @author yuhao5
  * @date 2020-07-13
  */
-public interface ILoginService {
+public interface IService {
     /**
      * 获得文章
      * @param articleReqDTO

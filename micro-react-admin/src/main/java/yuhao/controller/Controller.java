@@ -1,6 +1,7 @@
 package yuhao.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +9,7 @@ import yuhao.dto.req.ArticleReqDTO;
 import yuhao.dto.req.EmailReqDTO;
 import yuhao.dto.resp.RespDTO;
 import yuhao.entity.Article;
-import yuhao.service.ILoginService;
+import yuhao.service.IService;
 import yuhao.service.IMailOpenService;
 
 import java.util.List;
@@ -20,13 +21,13 @@ import java.util.List;
 @RestController
 public class Controller {
     @Autowired
-    IMailOpenService mailOpenService;
+    IMailOpenService iMailOpenService;
     @Autowired
-    ILoginService loginService;
+    IService iService;
 
     @PostMapping("/sendCode")
     public RespDTO<Object> sendCode(@RequestBody EmailReqDTO email){
-        return  mailOpenService.sendEMail(email);
+        return  iMailOpenService.sendEMail(email);
     }
 
     /**
@@ -36,7 +37,14 @@ public class Controller {
      */
     @PostMapping("/getArticle")
     public RespDTO<Object> searchArticleByFilterConditions(@RequestBody ArticleReqDTO articleReqDTO){
-        return loginService.searchArticleByFilterConditions(articleReqDTO);
+        return iService.searchArticleByFilterConditions(articleReqDTO);
+    }
+
+    @GetMapping("/getIndexArticle")
+    public RespDTO<Object> getIndexArticle(){
+        return iService.searchArticleByFilterConditions(
+                new ArticleReqDTO().setId("9").setArticleTitle("index")
+        );
     }
 
     /**
@@ -46,7 +54,7 @@ public class Controller {
      */
     @PostMapping("/addArticle")
     public RespDTO<Object> addArticle(@RequestBody Article article){
-        return loginService.addArticle(article);
+        return iService.addArticle(article);
     }
 
     /**
@@ -56,7 +64,7 @@ public class Controller {
      */
     @PostMapping("/removeArticles")
     public RespDTO<Object> removeArticles(@RequestBody List<Article> articles){
-        return loginService.removeArticles(articles);
+        return iService.removeArticles(articles);
     }
 
     /**
@@ -66,6 +74,6 @@ public class Controller {
      */
     @PostMapping("/updateArticle")
     public RespDTO<Object> updateArticle(@RequestBody Article article){
-        return loginService.updateArticle(article);
+        return iService.updateArticle(article);
     }
 }

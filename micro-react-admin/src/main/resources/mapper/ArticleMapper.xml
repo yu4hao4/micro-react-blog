@@ -6,7 +6,7 @@
     <result column="publish_time" jdbcType="VARCHAR" property="publishTime" />
     <result column="publish_user" jdbcType="VARCHAR" property="publishUser" />
     <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
-    <result column="article_content" jdbcType="mediumtext" property="articleContent" />
+    <result column="article_content" jdbcType="VARCHAR" property="articleContent" />
     <result column="article_browse" jdbcType="INTEGER" property="articleBrowse" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -27,7 +27,7 @@
       article_title, article_content, article_browse
       )
     values (#{id,jdbcType=INTEGER}, #{publishTime,jdbcType=VARCHAR}, #{publishUser,jdbcType=VARCHAR},
-      #{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=mediumtext}, #{articleBrowse,jdbcType=INTEGER}
+      #{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=VARCHAR}, #{articleBrowse,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="yuhao.entity.Article">
@@ -66,7 +66,7 @@
         #{articleTitle,jdbcType=VARCHAR},
       </if>
       <if test="articleContent != null">
-        #{articleContent,jdbcType=mediumtext},
+        #{articleContent,jdbcType=VARCHAR},
       </if>
       <if test="articleBrowse != null">
         #{articleBrowse,jdbcType=INTEGER},
@@ -86,7 +86,7 @@
         article_title = #{articleTitle,jdbcType=VARCHAR},
       </if>
       <if test="articleContent != null">
-        article_content = #{articleContent,jdbcType=mediumtext},
+        article_content = #{articleContent,jdbcType=VARCHAR},
       </if>
       <if test="articleBrowse != null">
         article_browse = #{articleBrowse,jdbcType=INTEGER},
@@ -99,7 +99,7 @@
     set publish_time = #{publishTime,jdbcType=VARCHAR},
       publish_user = #{publishUser,jdbcType=VARCHAR},
       article_title = #{articleTitle,jdbcType=VARCHAR},
-      article_content = #{articleContent,jdbcType=mediumtext},
+      article_content = #{articleContent,jdbcType=VARCHAR},
       article_browse = #{articleBrowse,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

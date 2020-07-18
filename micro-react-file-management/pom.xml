@@ -34,17 +34,25 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
+        <!--这样会生成两个 jar，一个可依赖，一个可执行并且后缀为 -execute -->
         <configuration>
-          <mainClass>yuhao.FileManagementApplication</mainClass>
+          <classifier>execute</classifier>
         </configuration>
       </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <goals>-->
+<!--              <goal>repackage</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--        <configuration>-->
+<!--          <mainClass>yuhao.FileManagementApplication</mainClass>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
     </plugins>
     <resources>
       <resource>

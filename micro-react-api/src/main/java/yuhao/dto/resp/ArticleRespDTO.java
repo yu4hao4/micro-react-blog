@@ -14,4 +14,14 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 public class ArticleRespDTO {
     private String id;
+
+    private String publishTime;
+
+    private String publishUser;
+
+    private String articleTitle;
+
+    private String articleContent;
+
+    private Integer articleBrowse;
 }
