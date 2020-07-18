@@ -26,6 +26,7 @@
       ])
       let endTime = new Date().getMilliseconds();
       console.log(endTime - beginTime)
+      console.log(resp)
       return {resp};
     },
     computed:{

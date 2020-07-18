@@ -40,6 +40,10 @@ public class Controller {
         return iService.searchArticleByFilterConditions(articleReqDTO);
     }
 
+    /**
+     * 获得首页文章
+     * @return
+     */
     @GetMapping("/getIndexArticle")
     public RespDTO<Object> getIndexArticle(){
         return iService.searchArticleByFilterConditions(

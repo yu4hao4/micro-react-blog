@@ -5,7 +5,7 @@ const admin = '/admin'
 // 获得首页文章
 export function getIndexArticle() {
   return request({
-    url: admin+'/getArticle',
+    url: admin+'/getIndexArticle',
     method: 'get'
   })
 }
