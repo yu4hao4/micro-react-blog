@@ -1,55 +1,89 @@
 <template>
-  <div v-html="getArticle">
+  <div>
+    <a-layout id="components-layout-demo-fixed">
+      <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
+        <a-row>
+<!--          <a-col :span="16" :offset="4">-->
+<!--            <span style="font-size: 25px;color: white">喻浩的实习准备</span>-->
+<!--          </a-col>-->
+        </a-row>
+      </a-layout-header>
+      <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+        <a-row>
+          <a-col :span="16" :offset="4">
+            <div  v-if="content === ''" :style="{ background: '#fff', padding: '24px', minHeight: '480px' }">
+              <a-spin :style="{ marginLeft: '45%', marginTop: '15%' }" size="large" />
+            </div>
+            <mavon-editor v-else :ishljs="true" fontSize="16px" :editable="false" :toolbarsFlag="false"
+                          defaultOpen="preview" :subfield="false" :value="this.content"
+            />
+          </a-col>
+        </a-row>
+      </a-layout-content>
+      <a-layout-footer :style="{ textAlign: 'center' }">
+          yuhao5 ©2020 Created by AntD
+      </a-layout-footer>
+    </a-layout>
   </div>
 </template>
 
 <script>
   import { getIndexArticle } from '~/utils/api'
-  import marked from 'marked'
+  // import marked from 'marked'
   let query = {"current":1,"total":100,"pageSize":6,"pageSizeOpts":[10,20,30,40,50],"id":4};
   export default {
     name: "test",
-    async asyncData () {
-      // return await axios.get(`https://my-api/posts/${params.id}`)
-      //   .then((res) => {
-      //     return { title: res.data.title }
-      //   })
-      // return await get(query)
-      //   .then((resp) => {
-      //     // let queryData = resp.data;
-      //     return {resp};
-      //     // return { title: res.data.title }
-      //   })
-      let beginTime = new Date().getMilliseconds();
-      let [resp] = await Promise.all([
-        getIndexArticle()
-      ])
-      let endTime = new Date().getMilliseconds();
-      console.log(endTime - beginTime)
-      console.log(resp)
-      return {resp};
+    // async asyncData () {
+    //   const resp = await getIndexArticle().then(resp => {
+    //     return resp;
+    //   })
+    //   console.log(111)
+    //   console.log(resp)
+    //   return {resp};
+    // },
+    mounted() {
+      this.getIndex();
     },
     computed:{
       getArticle(){
         // let render = mavonEditor.getMarkdownIt();
         // console.log(this.content)
-        // console.log(this.resp)
-        return marked(this.content);
+        // console.log(this.resp.data.obj.list[0].articleContent)
+        // let indexContent = this.resp.data.obj.list[0].articleContent;
+        // return marked(this.content);
+        // console.log(this.content)
+        // return marked(this.content);
       }
     },
-    mounted() {
-      console.log(this.resp)
+    head () {
+      return {
+        title: "首页",
+        meta: [
+          { hid: 'description', name: 'description', content: 'My custom description' }
+        ]
+      }
     },
     data(){
       return{
-        content:"# how to use mavonEditor in nuxt.js\n" +
-          "# 1232131231\n" +
-          "<h4><a id=\"how_to_use_mavonEditor_in_nuxtjs_0\"></a>how to use mavonEditor in nuxt.js</h4> <h1><a id=\"1232131231_1\"></a>1232131231</h1>\n"
+        content:"",
       }
+    },
+    methods:{
+      async getIndex(){
+        await getIndexArticle().then(resp => {
+          this.content = resp.data.obj.list[0].articleContent
+        })
+      },
     }
   }
 </script>
 
 <style scoped>
-
+  #components-layout-demo-fixed .logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 24px 16px 0;
+    float: left;
+  }
 </style>

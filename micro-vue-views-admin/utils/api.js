@@ -10,6 +10,15 @@ export function getIndexArticle() {
   })
 }
 
+// 更新文章
+export function updateArticle(query) {
+  return request({
+    url: admin+'/updateArticle',
+    method: 'post',
+    data:query
+  })
+}
+
 export function get(query) {
   return request({
     url: 'getInfo',

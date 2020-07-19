@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import yuhao.bean.PagingBean;
 
+import java.io.Serializable;
+
 /**
  * @author 喻浩
  * @create 2020-07-13-23:38
@@ -14,7 +16,7 @@ import yuhao.bean.PagingBean;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleReqDTO extends PagingBean {
+public class ArticleReqDTO extends PagingBean implements Serializable {
     // 文章id
     private String id;
     // 文章标题

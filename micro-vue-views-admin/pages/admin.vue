@@ -43,16 +43,24 @@
       AddArticle,
       ManageArticle
     },
+    head () {
+      return {
+        title: "后台管理",
+        meta: [
+          { hid: 'description', name: 'description', content: 'My custom description' }
+        ]
+      }
+    },
     data() {
       return {
         collapsed: false,
         menus:[
-          {key:'index-manage',iconType:'home',name:'主页管理'},
+          {key:'index-manage',iconType:'home',name:'首页管理'},
           {key:'data-statistics',iconType:'pie-chart',name:'数据统计'},
           {key:'add-article',iconType:'file',name:'添加文章'},
           {key:'manage-article',iconType:'setting',name:'文章管理'},
         ],
-        chooseMenu:{key:'index-manage',iconType:'pie-chart',name:'数据统计'}
+        chooseMenu:{key:'index-manage',iconType:'pie-chart',name:'数据统计'},
       };
     },
     computed:{
