@@ -1,18 +1,21 @@
 <template>
   <div>
-    <a-row>
-      <a-col :span="2" :offset="22">
-        <a-button type="primary" icon="download" size="large" @click="save">
-          保存
-        </a-button>
-      </a-col>
-    </a-row>
-    <MarkDownEditor ref="markdown" :content='content' @changeContent="changeContent"/>
+<!--    <a-row>-->
+<!--      <a-col :span="2" :offset="22">-->
+<!--        <a-button type="primary" icon="upload" size="large" @click="save">-->
+<!--          保存-->
+<!--        </a-button>-->
+<!--      </a-col>-->
+<!--    </a-row>-->
+    <MarkDownEditor ref="markdown" :content='indexArticle.articleContent'
+                    @changeContent="changeContent"
+                    @saveContent="save"/>
   </div>
 </template>
 
 <script>
   import MarkDownEditor from '~/components/markdown-editor'
+  import { getIndexArticle, updateArticle } from '~/utils/api'
   export default {
     name: "index",
     components:{
@@ -20,15 +23,28 @@
     },
     data(){
       return {
-        content:"1111saadsdasdddsadsad"
+        indexArticle:{
+          articleContent:""
+        }
       }
     },
+    mounted() {
+      this.getIndex();
+    },
     methods:{
+      async getIndex(){
+        await getIndexArticle().then(resp => {
+          this.indexArticle = resp.data.obj.list[0]
+        })
+      },
       changeContent(val){
-        this.content = val;
+        this.indexArticle.articleContent = val;
       },
       save(){
-        this.content;
+        updateArticle(this.indexArticle)
+          .then(resp => {
+            console.log(resp)
+          })
       }
     }
   }

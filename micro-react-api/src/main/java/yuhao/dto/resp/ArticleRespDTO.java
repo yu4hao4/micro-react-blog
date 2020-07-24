@@ -3,6 +3,8 @@ package yuhao.dto.resp;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @author 喻浩
  * @create 2020-07-13-23:45
@@ -12,7 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleRespDTO {
+public class ArticleRespDTO implements Serializable {
     private String id;
 
     private String publishTime;

@@ -1,10 +1,11 @@
 <template>
   <div class="mavonEditor">
-    <no-ssr>
+    <client-only>
       <mavon-editor :toolbars="markdownOption" v-model="mdContent"
-                    @imgAdd="imgAdd" ref="md"
+                    @imgAdd="imgAdd" ref="md" @save="saveContent"
+                    :ishljs="true" fontSize="16px"
       />
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 <script>
@@ -78,6 +79,9 @@
             this.$refs.md.$img2Url(position, resp.data.obj);
         })
       },
+      saveContent(){
+        this.$emit('saveContent')
+      }
     }
   };
 </script>
