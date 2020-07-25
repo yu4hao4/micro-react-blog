@@ -4,24 +4,6 @@
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
           <div class="layout-logo"></div>
-          <div class="layout-nav">
-            <MenuItem name="1">
-              <Icon type="ios-navigate"></Icon>
-              页面 1
-            </MenuItem>
-            <MenuItem name="2">
-              <Icon type="ios-keypad"></Icon>
-              页面 2
-            </MenuItem>
-            <MenuItem name="3">
-              <Icon type="ios-analytics"></Icon>
-              页面 3
-            </MenuItem>
-            <MenuItem name="4">
-              <Icon type="ios-paper"></Icon>
-              页面 4
-            </MenuItem>
-          </div>
         </Menu>
       </Header>
       <Layout>
@@ -60,7 +42,7 @@
             <BreadcrumbItem>Components</BreadcrumbItem>
             <BreadcrumbItem>Layout</BreadcrumbItem>
           </Breadcrumb>
-          <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+          <Content :style="{padding: '24px', minHeight: '80vh', background: '#fff'}">
             <MyContent/>
           </Content>
         </Layout>
@@ -96,7 +78,7 @@
     left: 20px;
   }
   .layout-nav{
-    width: 420px;
+    width: 620px;
     margin: 0 auto;
     margin-right: 20px;
   }
