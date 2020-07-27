@@ -1,0 +1,27 @@
+server:
+  port: 9401
+spring:
+  datasource:
+    master:
+      url: jdbc:mysql://121.36.49.252:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root
+      driverClassName: com.mysql.jdbc.Driver
+    slave:
+      url: jdbc:mysql://121.36.49.252:3307/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root
+      driverClassName: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true

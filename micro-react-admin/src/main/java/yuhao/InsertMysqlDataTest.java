@@ -14,7 +14,7 @@ import java.util.UUID;
  * @author yuhao5
  * @date 2020-07-25
  */
-public class Test {
+public class InsertMysqlDataTest {
     public static void main(String[] args) {
         final String driver = "com.mysql.jdbc.Driver";
         final String url = "jdbc:mysql://121.36.49.252:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
