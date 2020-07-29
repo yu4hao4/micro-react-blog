@@ -8,7 +8,7 @@
       </Header>
       <Layout>
         <Sider hide-trigger :style="{background: '#fff'}">
-          <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
+          <Menu active-name="1-2" theme="light" width="auto">
             <Submenu name="1">
               <template slot="title">
                 <Icon type="ios-navigate"></Icon>
@@ -38,9 +38,7 @@
         </Sider>
         <Layout :style="{padding: '0 24px 24px'}">
           <Breadcrumb :style="{margin: '24px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Components</BreadcrumbItem>
-            <BreadcrumbItem>Layout</BreadcrumbItem>
+            <BreadcrumbItem>首页</BreadcrumbItem>
           </Breadcrumb>
           <Content :style="{padding: '24px', minHeight: '80vh', background: '#fff'}">
             <MyContent/>

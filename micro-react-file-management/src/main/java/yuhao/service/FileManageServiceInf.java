@@ -2,6 +2,7 @@ package yuhao.service;
 
 
 import org.springframework.web.multipart.MultipartFile;
+import yuhao.dto.req.FileReqDTO;
 import yuhao.dto.resp.RespDTO;
 
 /**
@@ -23,4 +24,11 @@ public interface FileManageServiceInf {
      * @return
      */
     RespDTO<Object> bigFileUpload(MultipartFile file);
+
+    /**
+     * 获得文件
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    RespDTO<Object> getFiles(FileReqDTO fileReqDTO);
 }

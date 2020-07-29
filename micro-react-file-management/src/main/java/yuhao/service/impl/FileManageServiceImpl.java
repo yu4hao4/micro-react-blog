@@ -2,13 +2,16 @@ package yuhao.service.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import yuhao.dto.req.FileReqDTO;
 import yuhao.dto.resp.RespDTO;
 import yuhao.service.FileManageServiceInf;
 import yuhao.util.FileManageUtil;
+import yuhao.util.RedisUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +30,8 @@ public class FileManageServiceImpl implements FileManageServiceInf {
 
     @Value("${file.url}")
     private String fileUrl;
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 上传文件
@@ -47,7 +52,6 @@ public class FileManageServiceImpl implements FileManageServiceInf {
         }
         System.out.println("校验文件大小结束");
 
-        log.info("正在做上传操作，上传文件为：{}",file.getOriginalFilename());
         String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         if( !("JPEG".equals(suffix.toUpperCase())
                 || "JPG".equals(suffix.toUpperCase())
@@ -55,29 +59,7 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             return RespDTO.error("文件错误");
         }
 
-        String filename = FileManageUtil.getInitFileName(file.getOriginalFilename());
-        String filePath = FileManageUtil.getFileStorePath() + filename;
-
-        File destinationFile = new File(filePath);
-
-        if (!destinationFile.getParentFile().exists()) {
-            boolean result = destinationFile.getParentFile().mkdirs();
-            if (!result) {
-                log.info("文件存储路径 {} 创建失败",destinationFile.getParentFile());
-            }
-            log.info("文件存储路径 {} 创建成功",destinationFile.getParentFile());
-        }
-
-        //上传文件
-        try {
-            file.transferTo(destinationFile);
-            log.info("文件上传成功，路径为：{}",filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return RespDTO.error("文件错误");
-        }
-
-        return RespDTO.commonly(200,"文件上传成功",imageUrl+filename);
+        return saveFile(imageUrl, file);
     }
 
     /**
@@ -99,9 +81,17 @@ public class FileManageServiceImpl implements FileManageServiceInf {
         }
         System.out.println("校验文件大小结束");
 
+        return saveFile(fileUrl, file);
+    }
+
+    /**
+     * 保存文件
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    private RespDTO<Object> saveFile(String url, MultipartFile file){
         log.info("正在做上传操作，上传文件为：{}",file.getOriginalFilename());
 
-//        String filename = FileManageUtil.getInitFileName(file.getOriginalFilename());
         String filename = file.getOriginalFilename();
         String filePath = FileManageUtil.getBigFileStorePath() + filename;
 
@@ -124,7 +114,7 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             return RespDTO.error("文件错误");
         }
 
-        return RespDTO.commonly(200,"文件上传成功",fileUrl+filename);
+        return RespDTO.commonly(200,"文件上传成功",url+filename);
     }
 
     /**
@@ -150,5 +140,24 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * 获得文件
+     *
+     * @param fileReqDTO
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    @Override
+    public RespDTO<Object> getFiles(FileReqDTO fileReqDTO) {
+        String fileStorePath = FileManageUtil.getFileStorePath();
+        File file = new File(fileStorePath);
+        File[] files = file.listFiles();
+        for (File file1 : files) {
+
+        }
+        return null;
     }
 }

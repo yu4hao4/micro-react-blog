@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import yuhao.dto.req.FileReqDTO;
 import yuhao.dto.resp.RespDTO;
 import yuhao.service.FileManageServiceInf;
 
@@ -35,9 +36,13 @@ public class FileManageController {
         return fileManageService.bigFileUpload(file);
     }
 
-    @RequestMapping("/test")
-    public RespDTO test(){
-        return RespDTO.commonly(201,"hello");
+    /**
+     * 获得文件
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    @PostMapping("/getFiles")
+    public RespDTO<Object> getFiles(@RequestBody FileReqDTO fileReqDTO){
+        return fileManageService.getFiles(fileReqDTO);
     }
-
 }

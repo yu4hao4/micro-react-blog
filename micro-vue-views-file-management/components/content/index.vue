@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Row>
-      <Col :span="3">
+    <Row :gutter="20">
+      <Col :span="4">
         <Input v-model="page.qualityNameCn" :maxlength="10" clearable show-word-limit placeholder="文件名" size="large" />
       </Col>
-      <Col :span="3">
+      <Col :span="2">
         <Button type="primary" shape="circle" icon="ios-search" size="large" @click="initData">搜 索</Button>
       </Col>
       <Col :span="2" :offset="14">
-        <Button type="primary" shape="circle" size="large" @click="add">上传文件</Button>
+        <Button type="primary" shape="circle" size="large" @click="openAddModal">上传文件</Button>
       </Col>
       <Col :span="2">
         <Button type="error" shape="circle" size="large" @click="openDeleteConfirmModal">删除选中</Button>
@@ -17,7 +17,12 @@
     <Row :gutter="40">
       <Col :span="4">
         <Card dis-hover style="margin: 32px 0;">
-          <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="60px">
+          <Poptip trigger="hover" width="400" placement="right-start">
+            <template #content >
+              <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="250px">
+            </template>
+            <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="60px">
+          </Poptip>
           <h3>A high quality UI Toolkit based on Vue.js</h3>
         </Card>
       </Col>
@@ -77,7 +82,7 @@
         this.addModal = false;
       },
       //添加管理员用户
-      add(){
+      openAddModal(){
         this.addModal = true;
       },
       //打开删除确认的模态框
@@ -92,20 +97,10 @@
       //删除选中的图片
       deleteChoose(){
         let choose = this.$refs.selection.getSelection();
-        deleteQualitys(choose)
-          .then(resp => {
-            this.initData();
-            this.deleteModal = false;
-          })
       },
       updateInfo(){
         let request = { ...this.showDetail }
         request.qualityUrl = request.qualityUrl.substring(request.qualityUrl.indexOf("image/")+6);
-        updateQuality(request)
-          .then(resp => {
-            this.initData();
-            this.hiddenModal();
-          })
       },
       //当前页码发生改变
       currentPageChange(val){
@@ -119,14 +114,14 @@
       },
       //初始化数据
       initData(){
-        getQualitys(this.page)
-          .then(resp => {
-            let respData = resp.data;
-            if (resp.status === 200 && respData.status === 201){
-              this.tableData = respData.obj.list;
-              this.page.total = respData.obj.total;
-            }
-          })
+        // getQualitys(this.page)
+        //   .then(resp => {
+        //     let respData = resp.data;
+        //     if (resp.status === 200 && respData.status === 201){
+        //       this.tableData = respData.obj.list;
+        //       this.page.total = respData.obj.total;
+        //     }
+        //   })
       },
       //如果文件超过设置大小，执行的方法
       processingPictureTooLarge(){

@@ -10,7 +10,7 @@ import java.util.Date;
 public class FileManageUtil {
 
     /**
-     * 获得文件的存储路径
+     * 获得文件的存储路径(图片)
      * @return
      */
     public static String getFileStorePath(){
