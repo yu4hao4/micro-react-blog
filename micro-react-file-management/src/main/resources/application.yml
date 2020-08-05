@@ -12,6 +12,38 @@ spring:
 #        指定外网ip 不同服务器上部署的微服务模块需要指定这个配置
         ip: 121.36.49.252
         port: 9101
+  main:
+    allow-bean-definition-overriding: true
+  # 数据库
+  datasource:
+    druid:
+      url: jdbc:mysql://47.102.36.32:13306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+  # 文件上传
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 1000MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true
 # 访问图片的ip地址
 image:
  url: http://121.36.49.252:9101/image/

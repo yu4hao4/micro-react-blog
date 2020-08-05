@@ -1,6 +1,8 @@
 package yuhao.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,13 +10,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import yuhao.dto.req.FileReqDTO;
+import yuhao.dto.resp.FileRespDTO;
 import yuhao.dto.resp.RespDTO;
+import yuhao.entity.Image;
+import yuhao.mapper.ImageMapper;
+import yuhao.mapper.MyImageMapper;
 import yuhao.service.FileManageServiceInf;
 import yuhao.util.FileManageUtil;
 import yuhao.util.RedisUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +39,10 @@ public class FileManageServiceImpl implements FileManageServiceInf {
     private String fileUrl;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private MyImageMapper myImageMapper;
+    @Autowired
+    private ImageMapper imageMapper;
 
     /**
      * 上传文件
@@ -145,19 +156,48 @@ public class FileManageServiceImpl implements FileManageServiceInf {
 
     /**
      * 获得文件
-     *
      * @param fileReqDTO
      * @author yuhao5
      * @date 2020-07-29
      */
     @Override
-    public RespDTO<Object> getFiles(FileReqDTO fileReqDTO) {
-        String fileStorePath = FileManageUtil.getFileStorePath();
-        File file = new File(fileStorePath);
-        File[] files = file.listFiles();
-        for (File file1 : files) {
+    public RespDTO<Object> getImages(FileReqDTO fileReqDTO) {
+        PageHelper.startPage(Integer.parseInt(fileReqDTO.getCurrent())
+                , Integer.parseInt(fileReqDTO.getPageSize()));
+        List<FileRespDTO> list
+                = myImageMapper.searchImageByFilterConditions(fileReqDTO);
+        list.forEach(image -> image.setUrl(imageUrl + image.getUrl()));
+        PageInfo<FileRespDTO> pageInfo = new PageInfo<>(list);
+        return RespDTO.commonly(201, pageInfo);
+    }
 
+    /**
+     * 添加文件
+     * @author yuhao5
+     * @date 2020-08-05
+     */
+    @Override
+    public RespDTO<Object> addImage(Image image) {
+        int insert = imageMapper.insertSelective(image);
+        if (insert > 0){
+            return RespDTO.ok("操作成功");
         }
-        return null;
+        return RespDTO.error("请求错误");
+    }
+
+    /**
+     * 删除图片
+     *
+     * @param images
+     * @author yuhao5
+     * @date 2020-08-05
+     */
+    @Override
+    public RespDTO<Object> removeImages(List<Image> images) {
+        int remove = myImageMapper.batchRemove(images);
+        if (remove > 0){
+            return RespDTO.ok("操作成功");
+        }
+        return RespDTO.error("请求错误");
     }
 }

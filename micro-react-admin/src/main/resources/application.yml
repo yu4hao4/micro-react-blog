@@ -25,12 +25,6 @@ spring:
       max-active: 20
       min-idle: 5
       max-wait: 60000
-  # 文件上传
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 500MB
-      max-request-size: 1000MB
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

@@ -1,4 +1,4 @@
-package yuhao.dto.req;
+package yuhao.dto.resp;
 
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -16,7 +16,9 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileReqDTO extends PagingBean implements Serializable {
-    // 文件名
-    private String name;
+public class FileRespDTO extends PagingBean implements Serializable {
+    // 文件id
+    private String id;
+    // 文件展示的url
+    private String url;
 }

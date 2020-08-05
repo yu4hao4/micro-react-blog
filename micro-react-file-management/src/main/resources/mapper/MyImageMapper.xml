@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yuhao.mapper.MyImageMapper">
+  <resultMap id="BaseResultMap" type="yuhao.entity.Image">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <resultMap id="MyDTOResultMap" type="yuhao.dto.resp.FileRespDTO">
+    <result column="name" jdbcType="VARCHAR" property="url" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, update_time
+  </sql>
+  <sql id="My_DTO_Base_Column_List">
+    id, name, update_time
+  </sql>
+  <delete id="batchRemove">
+    delete from image where id in
+    <foreach collection="list" item="item" index="no" open="("
+             separator="," close=")">
+      #{item.id}
+    </foreach>
+  </delete>
+  <select id="searchImageByFilterConditions" resultMap="MyDTOResultMap">
+    select
+    <include refid="My_DTO_Base_Column_List"/>
+    from image
+    <where>
+      <if test="name != null and name != ''">
+        name = #{name}
+      </if>
+    </where>
+    order by id desc
+  </select>
+</mapper>
