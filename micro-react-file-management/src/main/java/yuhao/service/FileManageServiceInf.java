@@ -29,18 +29,25 @@ public interface FileManageServiceInf {
     RespDTO<Object> bigFileUpload(MultipartFile file);
 
     /**
-     * 获得文件
-     * @author yuhao5
-     * @date 2020-07-29
-     */
-    RespDTO<Object> getImages(FileReqDTO fileReqDTO);
-
-    /**
      * 添加文件
      * @author yuhao5
      * @date 2020-08-05
      */
     RespDTO<Object> addImage(Image image);
+
+    /**
+     * 更新图片
+     * @author yuhao5
+     * @date 2020-08-06
+     */
+    RespDTO<Object> updateImage(Image image);
+
+    /**
+     * 获得文件
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    RespDTO<Object> getImages(FileReqDTO fileReqDTO);
 
     /**
      * 删除图片

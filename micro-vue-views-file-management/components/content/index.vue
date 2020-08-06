@@ -2,7 +2,7 @@
   <div>
     <Row :gutter="20">
       <Col :span="4">
-        <Input v-model="page.qualityNameCn" :maxlength="10" clearable show-word-limit placeholder="文件名" size="large" />
+        <Input v-model="page.name" :maxlength="10" clearable show-word-limit placeholder="文件名" size="large" />
       </Col>
       <Col :span="2">
         <Button type="primary" shape="circle" icon="ios-search" size="large" @click="initData">搜 索</Button>
@@ -15,26 +15,20 @@
       </Col>
     </Row>
     <Row :gutter="40">
-      <Col :span="4">
-        <Card dis-hover style="margin: 32px 0;">
-          <Poptip trigger="hover" width="400" placement="right-start">
-            <template #content >
-              <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="250px">
-            </template>
-            <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="60px">
-          </Poptip>
-          <h3>A high quality UI Toolkit based on Vue.js</h3>
-        </Card>
+      {{selections}}
+      <Col :span="4" v-for="(item, key) in tableData" :key="key">
+        <span @click="chooseItem(item)" >
+          <Card dis-hover style="margin: 32px 0;">
+            <Poptip trigger="hover" width="400" placement="right-start">
+              <template #content >
+                <img :src="item.url" width="100%" height="250px">
+              </template>
+              <img :src="item.url" width="100%" height="60px">
+            </Poptip>
+            <h3 :style="getColor(item)">{{getImageName(item.url)}}</h3>
+          </Card>
+        </span>
       </Col>
-      <Col :span="4">
-        <Card dis-hover style="margin: 32px 0">
-          <img src="https://www.baidu.com/img/dong_66cae51456b9983a890610875e89183c.gif" width="100%" height="60px">
-        </Card>
-      </Col>
-      <Col :span="4"></Col>
-      <Col :span="4"></Col>
-      <Col :span="4"></Col>
-      <Col :span="4"></Col>
     </Row>
     <!--    分页组件-->
     <div style="margin: 10px;overflow: hidden">
@@ -49,6 +43,7 @@
   </div>
 </template>
 <script>
+  import { getImages } from '~/util/api'
   export default {
     components : {
     },
@@ -58,6 +53,7 @@
     data () {
       return {
         tableData: [],
+        selections:[],
         detailModal:false,
         addModal:false,
         deleteModal:false,
@@ -66,11 +62,39 @@
           total:100,
           pageSize:2,
           pageSizeOpts:[10, 20, 30, 40, 50],
-          qualityNameCn:'',
+          name:'',
         }
       }
     },
     methods: {
+      getImageName(name){
+        let result = name;
+        if (name.indexOf("image")){
+          result = name.substring(name.indexOf("image/")+6)
+        }
+        return result.substr(0,10)+"...";
+      },
+      chooseItem(data){
+        let items = this.selections;
+        let flag = true;
+        for (let i in items){
+          if (items[i].id === data.id){
+            console.log(1)
+            //包含传入的选择
+            items.splice(i,1);
+            flag = false;
+            break;
+          }
+        }
+        if (flag){
+          items.push(data);
+        }
+      },
+      getColor(item){
+        if (this.selections.length > 0){
+          return "background-color: #2d8cf0";
+        }
+      },
       //显示modal，同时获得点击的用户数据
       show (index) {
         this.showDetail = this.tableData[index];
@@ -114,14 +138,14 @@
       },
       //初始化数据
       initData(){
-        // getQualitys(this.page)
-        //   .then(resp => {
-        //     let respData = resp.data;
-        //     if (resp.status === 200 && respData.status === 201){
-        //       this.tableData = respData.obj.list;
-        //       this.page.total = respData.obj.total;
-        //     }
-        //   })
+        getImages(this.page)
+          .then(resp => {
+            let respData = resp.data;
+            if (resp.status === 200 && respData.status === 201){
+              this.tableData = respData.obj.list;
+              this.page.total = respData.obj.total;
+            }
+          })
       },
       //如果文件超过设置大小，执行的方法
       processingPictureTooLarge(){
@@ -130,7 +154,6 @@
       //上传图片成功
       uploadPictureSuccess(response, file, fileList){
         this.showDetail.qualityUrl=response.obj;
-        this.addDetail.qualityUrl=response.obj;
       },
       //上传图片失败
       uploadPictureFail(error, file, fileList){
@@ -139,11 +162,6 @@
       confirm(){
         let request = { ...this.addDetail }
         request.qualityUrl = request.qualityUrl.substring(request.qualityUrl.indexOf("image/")+6);
-        addQuality(request)
-          .then(resp => {
-            this.initData();
-            this.hiddenModal();
-          })
       }
     }
   }

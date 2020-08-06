@@ -54,12 +54,34 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    //开启代理
+    proxy:true,
+    //请求加上前缀 /api
+    // prefix:'/api',
+    prefix:'',
+    //跨域访问时是否需要凭证
+    credentials:false,
+    //失败重试次数
+    retry: { retries: 1 }
+  },
+  proxy:{
+    '/api':{
+      target:'http://127.0.0.1:9101',
+      pathRewrite:{
+        //将 /api 替换为 /
+        '^/api':'/',
+        //是否跨域
+        changeOrigin:true
+      }
+    },
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

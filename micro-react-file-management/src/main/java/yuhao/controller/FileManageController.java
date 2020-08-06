@@ -44,16 +44,6 @@ public class FileManageController {
     }
 
     /**
-     * 获得图片
-     * @author yuhao5
-     * @date 2020-07-29
-     */
-    @PostMapping("/getImages")
-    public RespDTO<Object> getImages(@RequestBody FileReqDTO fileReqDTO){
-        return fileManageService.getImages(fileReqDTO);
-    }
-
-    /**
      * 添加图片
      * @author yuhao5
      * @date 2020-08-05
@@ -61,6 +51,15 @@ public class FileManageController {
     @PostMapping("/addImage")
     public RespDTO<Object> addImage(@RequestBody Image image){
         return fileManageService.addImage(image);
+    }
+    /**
+     * 更新图片
+     * @author yuhao5
+     * @date 2020-08-05
+     */
+    @PostMapping("/updateImage")
+    public RespDTO<Object> updateImage(@RequestBody Image image){
+        return fileManageService.updateImage(image);
     }
 
     /**
@@ -71,6 +70,16 @@ public class FileManageController {
     @PostMapping("/removeImages")
     public RespDTO<Object> removeImages(@RequestBody List<Image> images){
         return fileManageService.removeImages(images);
+    }
+
+    /**
+     * 获得图片
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    @PostMapping("/getImages")
+    public RespDTO<Object> getImages(@RequestBody FileReqDTO fileReqDTO){
+        return fileManageService.getImages(fileReqDTO);
     }
 
 }

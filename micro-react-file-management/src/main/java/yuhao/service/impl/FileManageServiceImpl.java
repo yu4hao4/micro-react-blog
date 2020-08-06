@@ -153,32 +153,28 @@ public class FileManageServiceImpl implements FileManageServiceInf {
         return true;
     }
 
-
     /**
-     * 获得文件
-     * @param fileReqDTO
-     * @author yuhao5
-     * @date 2020-07-29
-     */
-    @Override
-    public RespDTO<Object> getImages(FileReqDTO fileReqDTO) {
-        PageHelper.startPage(Integer.parseInt(fileReqDTO.getCurrent())
-                , Integer.parseInt(fileReqDTO.getPageSize()));
-        List<FileRespDTO> list
-                = myImageMapper.searchImageByFilterConditions(fileReqDTO);
-        list.forEach(image -> image.setUrl(imageUrl + image.getUrl()));
-        PageInfo<FileRespDTO> pageInfo = new PageInfo<>(list);
-        return RespDTO.commonly(201, pageInfo);
-    }
-
-    /**
-     * 添加文件
+     * 添加图片
      * @author yuhao5
      * @date 2020-08-05
      */
     @Override
     public RespDTO<Object> addImage(Image image) {
         int insert = imageMapper.insertSelective(image);
+        if (insert > 0){
+            return RespDTO.ok("操作成功");
+        }
+        return RespDTO.error("请求错误");
+    }
+
+    /**
+     * 更新图片
+     * @author yuhao5
+     * @date 2020-08-06
+     */
+    @Override
+    public RespDTO<Object> updateImage(Image image) {
+        int insert = imageMapper.updateByPrimaryKeySelective(image);
         if (insert > 0){
             return RespDTO.ok("操作成功");
         }
@@ -199,5 +195,22 @@ public class FileManageServiceImpl implements FileManageServiceInf {
             return RespDTO.ok("操作成功");
         }
         return RespDTO.error("请求错误");
+    }
+
+    /**
+     * 获得图片
+     * @param fileReqDTO
+     * @author yuhao5
+     * @date 2020-07-29
+     */
+    @Override
+    public RespDTO<Object> getImages(FileReqDTO fileReqDTO) {
+        PageHelper.startPage(Integer.parseInt(fileReqDTO.getCurrent())
+                , Integer.parseInt(fileReqDTO.getPageSize()));
+        List<FileRespDTO> list
+                = myImageMapper.searchImageByFilterConditions(fileReqDTO);
+        list.forEach(image -> image.setUrl(imageUrl + image.getUrl()));
+        PageInfo<FileRespDTO> pageInfo = new PageInfo<>(list);
+        return RespDTO.commonly(201, pageInfo);
     }
 }

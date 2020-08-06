@@ -46,7 +46,8 @@ pagehelper:
   page-size-zero: true
 # 访问图片的ip地址
 image:
- url: http://121.36.49.252:9101/image/
+# url: http://121.36.49.252:9101/image/
+ url: http://127.0.0.1:9101/image/
 
 # 访问文件的ip地址
 file:
