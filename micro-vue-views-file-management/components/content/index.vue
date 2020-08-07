@@ -40,6 +40,15 @@
       </div>
     </div>
 
+    <Modal
+      v-model="deleteModal"
+      title="删除数据"
+      @on-cancel="deleteModal = false">
+      <p>确定要删除选中的数据吗？</p>
+      <div slot="footer">
+        <Button type="error" size="large" long @click="deleteChoose">确定删除</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
@@ -67,6 +76,7 @@
       }
     },
     methods: {
+      // 获得图片名称
       getImageName(name){
         let result = name;
         if (name.indexOf("image")){
@@ -74,6 +84,7 @@
         }
         return result.substr(0,10)+"...";
       },
+      // 选中要删除的图片
       chooseItem(data){
         let items = this.selections;
         let flag = true;
@@ -90,6 +101,7 @@
           items.push(data);
         }
       },
+      //选中后更改图片名称的颜色
       getColor(item){
         if (this.selections.length > 0){
           return "background-color: #2d8cf0";
@@ -111,7 +123,7 @@
       },
       //打开删除确认的模态框
       openDeleteConfirmModal(){
-        let choose = this.$refs.selection.getSelection();
+        let choose = this.selections;
         if (choose.length === 0){
           this.$Message.error('请先选择您要删除的数据');
           return
@@ -120,7 +132,8 @@
       },
       //删除选中的图片
       deleteChoose(){
-        let choose = this.$refs.selection.getSelection();
+        let choose = this.selections;
+        this.deleteModal = false;
       },
       updateInfo(){
         let request = { ...this.showDetail }
