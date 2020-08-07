@@ -8,7 +8,7 @@
         <Button type="primary" shape="circle" icon="ios-search" size="large" @click="initData">搜 索</Button>
       </Col>
       <Col :span="2" :offset="14">
-        <Button type="primary" shape="circle" size="large" @click="openAddModal">上传文件</Button>
+        <Button type="primary" shape="circle" size="large" @click="openUploadModal">上传文件</Button>
       </Col>
       <Col :span="2">
         <Button type="error" shape="circle" size="large" @click="openDeleteConfirmModal">删除选中</Button>
@@ -49,6 +49,41 @@
         <Button type="error" size="large" long @click="deleteChoose">确定删除</Button>
       </div>
     </Modal>
+
+    <Modal
+      v-model="uploadModal"
+      title="上传">
+      <div class="demo-upload-list" v-for="item in uploadList">
+        <template v-if="item.status === 'finished'">
+          <img :src="item.url">
+          <div class="demo-upload-list-cover">
+            <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+          </div>
+        </template>
+        <template v-else>
+          <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+        </template>
+      </div>
+      <Upload
+        ref="upload"
+        :show-upload-list="false"
+        :default-file-list="uploadList"
+        :on-success="handleSuccess"
+        :format="['jpg','jpeg','png']"
+        :max-size="2048"
+        :on-format-error="handleFormatError"
+        :on-exceeded-size="handleMaxSize"
+        :before-upload="handleBeforeUpload"
+        :action="fileUpload"
+        multiple
+        type="drag">
+        <div style="padding: 20px 0">
+          <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+          <p>Click or drag files here to upload</p>
+        </div>
+      </Upload>
+    </Modal>
   </div>
 </template>
 <script>
@@ -61,11 +96,25 @@
     },
     data () {
       return {
+        imgName: '',
+        visible: false,
+        uploadList: [
+          {
+            'name': 'a42bdcc1178e62b4694c830f028db5c0',
+            'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
+          },
+          {
+            'name': 'bc7521e033abdd1e92222d733590f104',
+            'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
+          }
+        ],
+
         tableData: [],
         selections:[],
         detailModal:false,
         addModal:false,
         deleteModal:false,
+        uploadModal:false,
         page:{
           current:1,
           total:100,
@@ -102,9 +151,12 @@
         }
       },
       //选中后更改图片名称的颜色
-      getColor(item){
-        if (this.selections.length > 0){
-          return "background-color: #2d8cf0";
+      getColor(data){
+        let items = this.selections;
+        for (let item of items){
+          if (item.id === data.id){
+            return "background-color: #2d8cf0";
+          }
         }
       },
       //显示modal，同时获得点击的用户数据
@@ -118,8 +170,8 @@
         this.addModal = false;
       },
       //添加管理员用户
-      openAddModal(){
-        this.addModal = true;
+      openUploadModal(){
+        this.uploadModal = true;
       },
       //打开删除确认的模态框
       openDeleteConfirmModal(){
@@ -160,22 +212,77 @@
             }
           })
       },
-      //如果文件超过设置大小，执行的方法
-      processingPictureTooLarge(){
-        this.$Message.error("体积太大,请上传小于2M的图片")
-      },
-      //上传图片成功
-      uploadPictureSuccess(response, file, fileList){
-        this.showDetail.qualityUrl=response.obj;
-      },
-      //上传图片失败
-      uploadPictureFail(error, file, fileList){
-        this.$Message.error('图片上传失败，请稍后再试')
-      },
       confirm(){
         let request = { ...this.addDetail }
         request.qualityUrl = request.qualityUrl.substring(request.qualityUrl.indexOf("image/")+6);
+      },
+
+      handleView (name) {
+        this.imgName = name;
+        this.visible = true;
+      },
+      handleRemove (file) {
+        const fileList = this.$refs.upload.fileList;
+        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
+      },
+      handleSuccess (res, file) {
+        file.url = 'https://file.iviewui.com/dist/7dcf5af41fac2e4728549fa7e73d61c5.svg';
+        file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+      },
+      handleFormatError (file) {
+        this.$Message.warning("文件格式不正确");
+      },
+      handleMaxSize (file) {
+        this.$Message.warning("文件太大");
+      },
+      handleBeforeUpload () {
+        // const check = this.uploadList.length < 5;
+        // if (!check) {
+        //   this.$Notice.warning({
+        //     title: 'Up to five pictures can be uploaded.'
+        //   });
+        // }
+        // return check;
       }
     }
   }
 </script>
+
+<style>
+  .demo-upload-list{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+    margin-right: 4px;
+  }
+  .demo-upload-list img{
+    width: 100%;
+    height: 100%;
+  }
+  .demo-upload-list-cover{
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.6);
+  }
+  .demo-upload-list:hover .demo-upload-list-cover{
+    display: block;
+  }
+  .demo-upload-list-cover i{
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 2px;
+  }
+</style>
