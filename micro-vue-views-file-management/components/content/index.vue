@@ -21,11 +21,11 @@
           <Card dis-hover style="margin: 32px 0;">
             <Poptip trigger="hover" width="400" placement="right-start">
               <template #content >
-                <img :src="item.url" width="100%" height="250px">
+                <img :src="item.url" width="100%" height="250px" alt="详细大图">
               </template>
-              <img :src="item.url" width="100%" height="60px">
+              <img :src="item.url" width="100%" height="60px" alt="缩略图">
             </Poptip>
-            <h3 :style="getColor(item)">{{getImageName(item.url)}}</h3>
+            <h3 :style="getColor(item)">{{getSubName(item.url)}}</h3>
           </Card>
         </span>
       </Col>
@@ -51,36 +51,30 @@
     </Modal>
 
     <Modal
+      width="60%"
       v-model="uploadModal"
       title="上传">
       <div class="demo-upload-list" v-for="item in uploadList">
-        <template v-if="item.status === 'finished'">
-          <img :src="item.url">
-          <div class="demo-upload-list-cover">
-            <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-          </div>
-        </template>
-        <template v-else>
-          <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-        </template>
+        <img :src="item.url">
+        <div class="demo-upload-list-cover">
+          <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+        </div>
       </div>
       <Upload
         ref="upload"
         :show-upload-list="false"
         :default-file-list="uploadList"
-        :on-success="handleSuccess"
         :format="['jpg','jpeg','png']"
         :max-size="2048"
         :on-format-error="handleFormatError"
         :on-exceeded-size="handleMaxSize"
-        :before-upload="handleBeforeUpload"
-        :action="fileUpload"
+        :on-progress="handleUpload"
+        action=""
         multiple
         type="drag">
         <div style="padding: 20px 0">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>Click or drag files here to upload</p>
+          <p>点击或者拖动到此处上传文件</p>
         </div>
       </Upload>
     </Modal>
@@ -125,8 +119,8 @@
       }
     },
     methods: {
-      // 获得图片名称
-      getImageName(name){
+      // 获得缩短的名称
+      getSubName(name){
         let result = name;
         if (name.indexOf("image")){
           result = name.substring(name.indexOf("image/")+6)
@@ -223,11 +217,10 @@
       },
       handleRemove (file) {
         const fileList = this.$refs.upload.fileList;
-        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-      },
-      handleSuccess (res, file) {
-        file.url = 'https://file.iviewui.com/dist/7dcf5af41fac2e4728549fa7e73d61c5.svg';
-        file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+        const index = fileList.indexOf(file);
+        console.log(fileList.indexOf(file))
+        this.uploadList.splice(index,1);
+        // this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
       },
       handleFormatError (file) {
         this.$Message.warning("文件格式不正确");
@@ -235,14 +228,19 @@
       handleMaxSize (file) {
         this.$Message.warning("文件太大");
       },
-      handleBeforeUpload () {
-        // const check = this.uploadList.length < 5;
-        // if (!check) {
-        //   this.$Notice.warning({
-        //     title: 'Up to five pictures can be uploaded.'
-        //   });
-        // }
-        // return check;
+      handleUpload(event, file, fileList){
+        console.log(event)
+        console.log(file)
+        console.log(fileList)
+        fileList.push({
+          'name': 'bc7521e033abdd1e92222d733590f104',
+          'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
+        });
+        this.uploadList.push({
+          'name': 'bc7521e033abdd1e92222d733590f104',
+          'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
+        })
+        return "";
       }
     }
   }
@@ -251,8 +249,10 @@
 <style>
   .demo-upload-list{
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    /*width: 70px;*/
+    width: 20%;
+    /*height: 70px;*/
+    height: 70px;
     text-align: center;
     line-height: 60px;
     border: 1px solid transparent;
