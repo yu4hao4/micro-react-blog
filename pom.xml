@@ -130,15 +130,6 @@
     </dependency>
   </dependencies>
 
-<!--  <build>-->
-<!--    <plugins>-->
-<!--&lt;!&ndash;      <plugin>&ndash;&gt;-->
-<!--&lt;!&ndash;        <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;        <artifactId>spring-boot-maven-plugin</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;        <version>2.2.2.RELEASE</version>&ndash;&gt;-->
-<!--&lt;!&ndash;      </plugin>&ndash;&gt;-->
-<!--    </plugins>-->
-<!--  </build>-->
   <build>
     <pluginManagement>
       <plugins>
