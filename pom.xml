@@ -17,6 +17,7 @@
     <module>micro-react-file-management</module>
     <module>micro-react-api</module>
     <module>micro-react-web</module>
+    <module>micro-vue-web</module>
   </modules>
 
   <properties>

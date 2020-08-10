@@ -18,7 +18,7 @@
       {{selections}}
       <Col :span="4" v-for="(item, key) in tableData" :key="key">
         <span @click="chooseItem(item)" >
-          <Card dis-hover style="margin: 32px 0;">
+          <Card dis-hover style="margin: 32px 0;text-align: center">
             <Poptip trigger="hover" width="400" placement="right-start">
               <template #content >
                 <img :src="item.url" width="100%" height="250px" alt="详细大图">

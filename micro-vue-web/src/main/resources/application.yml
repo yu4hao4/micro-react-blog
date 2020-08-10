@@ -1,0 +1,37 @@
+server:
+  port: 9601
+spring:
+  profiles:
+    active: dev
+  application:
+    name: micro-vue-web
+  cloud:
+    nacos:
+      discovery:
+#        server-addr: 121.36.8.146:8848
+        server-addr: localhost:8848
+        #        指定外网ip
+#        ip: 121.36.8.146
+        ip: localhost
+        port: 9601
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+#    url: jdbc:mysql://121.36.8.146:3306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+# pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true

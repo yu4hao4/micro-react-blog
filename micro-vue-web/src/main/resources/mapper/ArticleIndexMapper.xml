@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yuhao.mapper.ArticleIndexMapper">
+  <resultMap id="BaseResultMap" type="yuhao.entity.ArticleIndex">
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="browse" jdbcType="INTEGER" property="browse" />
+    <result column="update_Time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <insert id="insert" parameterType="yuhao.entity.ArticleIndex">
+    insert into article_index (title, browse, update_Time,
+      content)
+    values (#{title,jdbcType=VARCHAR}, #{browse,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR},
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="yuhao.entity.ArticleIndex">
+    insert into article_index
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="browse != null">
+        browse,
+      </if>
+      <if test="updateTime != null">
+        update_Time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="browse != null">
+        #{browse,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectIndex" resultMap="BaseResultMap">
+    select title, browse, update_Time, content
+    from article_index limit 0,1
+  </select>
+</mapper>
