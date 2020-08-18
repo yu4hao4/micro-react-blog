@@ -17,7 +17,7 @@
     <Row :gutter="40">
       {{selections}}
       <Col :span="4" v-for="(item, key) in tableData" :key="key">
-        <span @click="chooseItem(item)" >
+        <span @click="chooseItem(item)" @dblclick="copy(item)" >
           <Card dis-hover style="margin: 32px 0;text-align: center">
             <Poptip trigger="hover" width="400" placement="right-start">
               <template #content >
@@ -25,7 +25,7 @@
               </template>
               <img :src="item.url" width="100%" height="60px" alt="缩略图">
             </Poptip>
-            <h3 :style="getColor(item)">{{getSubName(item.url)}}</h3>
+            <h3 :style="getColor(item)">{{ getSubName(item.url) }}</h3>
           </Card>
         </span>
       </Col>
@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-  import { getImages } from '~/util/api'
+  import { getImages,fileUpload } from '~/util/api'
   export default {
     components : {
     },
@@ -210,7 +210,6 @@
         let request = { ...this.addDetail }
         request.qualityUrl = request.qualityUrl.substring(request.qualityUrl.indexOf("image/")+6);
       },
-
       handleView (name) {
         this.imgName = name;
         this.visible = true;
@@ -230,18 +229,43 @@
       },
       handleUpload(event, file, fileList){
         console.log(event)
-        console.log(file)
+        console.log(file.file)
         console.log(fileList)
-        fileList.push({
-          'name': 'bc7521e033abdd1e92222d733590f104',
-          'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
-        });
-        this.uploadList.push({
-          'name': 'bc7521e033abdd1e92222d733590f104',
-          'url': 'https://res.hc-cdn.com/cnpm-common-resource/2.0.2/base/header/components/images/logo.png'
-        })
+        let formData = new FormData();
+        formData.set("file", file);
+        fileUpload(formData)
+          .then(resp => {
+            if (resp.data.status === 200){
+              fileList.push({
+                'url': resp.data.obj
+              });
+              this.uploadList.push({
+                'url': resp.data.obj
+              })
+            }
+          })
+
         return "";
-      }
+      },
+      copy(item){
+        this.copyToClipboard(item.url); // 需要复制的文本内容
+        this.$Message.success('复制成功，注意带变量字段内容请自行替换！');
+      },
+      // 点击复制到剪贴板函数
+      copyToClipboard(content) {
+        if (window.clipboardData) {
+          window.clipboardData.setData('text', content);
+        } else {
+          (function (content) {
+            document.oncopy = function (e) {
+              e.clipboardData.setData('text', content);
+              e.preventDefault();
+              document.oncopy = null;
+            }
+          })(content);
+          document.execCommand('Copy');
+        }
+      },
     }
   }
 </script>
