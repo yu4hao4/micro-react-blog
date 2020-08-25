@@ -11,6 +11,10 @@
 
   <artifactId>micro-react-admin</artifactId>
 
+  <properties>
+    <mysql.version>8.0.20</mysql.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.example</groupId>

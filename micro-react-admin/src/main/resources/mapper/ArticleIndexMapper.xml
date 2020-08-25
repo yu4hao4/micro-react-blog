@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yuhao.mapper.ArticleIndexMapper">
+  <resultMap id="BaseResultMap" type="yuhao.entity.ArticleIndex">
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="mediumtext" property="content" />
+    <result column="browse" jdbcType="INTEGER" property="browse" />
+    <result column="update_Time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+  <insert id="update" parameterType="yuhao.entity.ArticleIndex">
+    update article_index set content = #{content} , update_time = #{updateTime} where title = '首页'
+  </insert>
+  <select id="search" resultMap="BaseResultMap">
+
+  </select>
+</mapper>

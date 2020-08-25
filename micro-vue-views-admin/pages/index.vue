@@ -41,8 +41,11 @@
     //   console.log(resp)
     //   return {resp};
     // },
+    beforeCreate() {
+      this.$router.push("/admin")
+    },
     mounted() {
-      this.getIndex();
+      // this.getIndex();
     },
     computed:{
       getArticle(){

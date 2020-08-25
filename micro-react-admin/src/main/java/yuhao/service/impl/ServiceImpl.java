@@ -8,10 +8,14 @@ import yuhao.dto.req.ArticleReqDTO;
 import yuhao.dto.resp.ArticleRespDTO;
 import yuhao.dto.resp.RespDTO;
 import yuhao.entity.Article;
+import yuhao.entity.ArticleIndex;
+import yuhao.mapper.ArticleIndexMapper;
 import yuhao.mapper.ArticleMapper;
 import yuhao.mapper.MyArticleMapper;
 import yuhao.service.IService;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -24,6 +28,8 @@ public class ServiceImpl implements IService {
     ArticleMapper articleMapper;
     @Autowired
     MyArticleMapper myArticleMapper;
+    @Autowired
+    ArticleIndexMapper articleIndexMapper;
 
     /**
      * 获得文章
@@ -82,6 +88,22 @@ public class ServiceImpl implements IService {
     @Override
     public RespDTO<Object> removeArticles(List<Article> articles) {
         if (myArticleMapper.batchDeleteArticle(articles) > 0){
+            return RespDTO.ok("操作成功");
+        }
+        return RespDTO.error("请求失败");
+    }
+
+    /**
+     * 更新首页文章
+     * @param article
+     * @return
+     */
+    @Override
+    public RespDTO<Object> updateIndexArticle(Article article) {
+        ArticleIndex articleIndex = new ArticleIndex();
+        articleIndex.setUpdateTime(LocalTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        articleIndex.setContent(article.getArticleContent());
+        if (articleIndexMapper.update(articleIndex) > 0){
             return RespDTO.ok("操作成功");
         }
         return RespDTO.error("请求失败");

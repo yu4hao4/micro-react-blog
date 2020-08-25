@@ -8,7 +8,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.102.36.32:8848
+        server-addr: 121.36.8.146:8848
 #        指定外网ip
         ip: 121.36.49.252
         port: 9501
@@ -17,10 +17,10 @@ spring:
   # 数据库
   datasource:
     druid:
-      url: jdbc:mysql://47.102.36.32:13306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://121.36.8.146:3306/micro_blog?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: root
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
       initial-size: 5
       max-active: 20
       min-idle: 5

@@ -1,6 +1,7 @@
 import request from './request'
 const fileManagement = '/file-management'
-const admin = '/admin'
+// const admin = '/admin'
+const admin = ''
 
 // 获得首页文章
 export function getIndexArticle() {

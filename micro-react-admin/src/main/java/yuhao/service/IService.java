@@ -38,4 +38,11 @@ public interface IService {
      * @date 2020-07-14
      */
     RespDTO<Object> removeArticles(List<Article> articles);
+
+    /**
+     * 更新首页文章
+     * @param article
+     * @return
+     */
+    RespDTO<Object> updateIndexArticle(Article article);
 }

@@ -80,4 +80,14 @@ public class Controller {
     public RespDTO<Object> updateArticle(@RequestBody Article article){
         return iService.updateArticle(article);
     }
+
+    /**
+     * 更新首页文章
+     * @param article
+     * @return
+     */
+    @PostMapping("updateIndexArticle")
+    public RespDTO<Object> updateIndexArticle(@RequestBody Article article){
+        return iService.updateIndexArticle(article);
+    }
 }
