@@ -108,4 +108,16 @@ public class ServiceImpl implements IService {
         }
         return RespDTO.error("请求失败");
     }
+
+    /**
+     * 获得首页文章
+     * time 2020/8/30
+     *
+     * @author yuhao5
+     */
+    @Override
+    public RespDTO<Object> getIndexArticle() {
+        ArticleRespDTO respDTO = articleIndexMapper.search();
+        return RespDTO.commonly(201,respDTO);
+    }
 }

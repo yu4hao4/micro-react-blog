@@ -3,14 +3,21 @@
 <mapper namespace="yuhao.mapper.ArticleIndexMapper">
   <resultMap id="BaseResultMap" type="yuhao.entity.ArticleIndex">
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="content" jdbcType="mediumtext" property="content" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="browse" jdbcType="INTEGER" property="browse" />
     <result column="update_Time" jdbcType="VARCHAR" property="updateTime" />
   </resultMap>
+  <resultMap id="MyBaseResultMap" type="yuhao.dto.resp.ArticleRespDTO">
+    <result column="title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="content" jdbcType="VARCHAR" property="articleContent" />
+    <result column="browse" jdbcType="INTEGER" property="articleBrowse" />
+    <result column="update_Time" jdbcType="VARCHAR" property="updateTime" />
+  </resultMap>
+
   <insert id="update" parameterType="yuhao.entity.ArticleIndex">
     update article_index set content = #{content} , update_time = #{updateTime} where title = '首页'
   </insert>
-  <select id="search" resultMap="BaseResultMap">
-
+  <select id="search" resultMap="MyBaseResultMap">
+    select * from article_index where title = '首页'
   </select>
 </mapper>

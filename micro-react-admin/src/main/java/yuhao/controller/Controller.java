@@ -46,9 +46,7 @@ public class Controller {
      */
     @GetMapping("/getIndexArticle")
     public RespDTO<Object> getIndexArticle(){
-        return iService.searchArticleByFilterConditions(
-                new ArticleReqDTO().setId("9").setArticleTitle("index")
-        );
+        return iService.getIndexArticle();
     }
 
     /**

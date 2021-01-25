@@ -26,4 +26,6 @@ public class ArticleRespDTO implements Serializable {
     private String articleContent;
 
     private Integer articleBrowse;
+
+    private Integer updateTime;
 }

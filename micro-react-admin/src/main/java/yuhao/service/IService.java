@@ -45,4 +45,11 @@ public interface IService {
      * @return
      */
     RespDTO<Object> updateIndexArticle(Article article);
+
+    /**
+     * 获得首页文章
+     * time 2020/8/30
+     * @author yuhao5
+     */
+    RespDTO<Object> getIndexArticle();
 }
